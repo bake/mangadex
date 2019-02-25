@@ -1,0 +1,9 @@
+HTTP/2.0 200 OK
+Cf-Ray: 4aec41c0a998407c-HAM
+Content-Type: application/json
+Date: Mon, 25 Feb 2019 18:32:50 GMT
+Expect-Ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+Server: cloudflare
+Set-Cookie: __cfduid=da39a2665f9a11ae761cd9b70047cb3e41551119570; expires=Tue, 25-Feb-20 18:32:50 GMT; path=/; domain=.mangadex.org; HttpOnly
+
+{"id":517244,"timestamp":1547047798,"hash":"4aa0fff4f2cd6803bfa5c4558e02bd31","volume":"3","chapter":"253","title":"Cool Day","lang_name":"English","lang_code":"gb","manga_id":23279,"group_id":27,"group_id_2":0,"group_id_3":0,"comments":8,"server":"https:\/\/s1.mangadex.org\/data\/","page_array":["m1.png"],"long_strip":0,"status":"OK"}
