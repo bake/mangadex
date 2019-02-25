@@ -20,7 +20,7 @@ func TestManga(t *testing.T) {
 		{"23279", "Wonder Cat Kyuu-chan"},
 	}
 	for _, tc := range tt {
-		m, _, err := md.Manga("23279")
+		m, _, err := md.Manga(tc.id)
 		if err != nil {
 			t.Fatal(err)
 		}
