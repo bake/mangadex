@@ -9,26 +9,26 @@ import (
 // Chapter contains information about a chapter. Some fields may be left empty
 // when returned by the Manga function.
 type Chapter struct {
-	ID         int    `json:"id"`
-	Volume     string `json:"volume"`
-	Chapter    string `json:"chapter"`
-	Title      string `json:"title"`
-	LangCode   string `json:"lang_code"`
-	GroupID    int    `json:"group_id"`
-	GroupName  string `json:"group_name"`
-	GroupID2   int    `json:"group_id_2"`
-	GroupName2 string `json:"group_name_2"`
-	GroupID3   int    `json:"group_id_3"`
-	GroupName3 string `json:"group_name_3"`
-	Timestamp  int    `json:"timestamp"`
+	ID         json.Number `json:"id"`
+	Volume     string      `json:"volume"`
+	Chapter    string      `json:"chapter"`
+	Title      string      `json:"title"`
+	LangCode   string      `json:"lang_code"`
+	GroupID    int         `json:"group_id"`
+	GroupName  string      `json:"group_name"`
+	GroupID2   int         `json:"group_id_2"`
+	GroupName2 string      `json:"group_name_2"`
+	GroupID3   int         `json:"group_id_3"`
+	GroupName3 string      `json:"group_name_3"`
+	Timestamp  int64       `json:"timestamp"`
 
 	// The following fields are only filled when the chapter is requested
 	// through the Client.Chapter function.
-	Hash       string   `json:"hash"`
-	Server     string   `json:"server"`
-	Pages      []string `json:"pages"`
-	LongString int      `json:"long_string"`
-	Status     string   `json:"status"`
+	Hash      string   `json:"hash"`
+	Server    string   `json:"server"`
+	Pages     []string `json:"pages"`
+	LongStrip int      `json:"long_strip"`
+	Status    string   `json:"status"`
 }
 
 // Chapter fetches a mangas chapter.
@@ -45,4 +45,16 @@ func (c *Client) Chapter(id string) (Chapter, error) {
 		return Chapter{}, errors.Errorf("could not get chapter %s: got unexpected status: %s", id, chapter.Status)
 	}
 	return chapter, nil
+}
+
+func (ch Chapter) String() string { return ch.Title }
+
+// Images returns a slice of URLs to the chapters pages.
+func (ch Chapter) Images() []string {
+	images := make([]string, len(ch.Pages))
+	base := ch.Server + ch.Hash + "/"
+	for i, page := range ch.Pages {
+		images[i] = base + page
+	}
+	return images
 }
