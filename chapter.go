@@ -10,8 +10,8 @@ import (
 // when returned by the Manga function.
 type Chapter struct {
 	ID         json.Number `json:"id"`
-	Volume     string      `json:"volume"`
-	Chapter    string      `json:"chapter"`
+	Volume     json.Number `json:"volume"`
+	Chapter    json.Number `json:"chapter"`
 	Title      string      `json:"title"`
 	LangCode   string      `json:"lang_code"`
 	GroupID    int         `json:"group_id"`
