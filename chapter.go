@@ -24,9 +24,10 @@ type Chapter struct {
 
 	// The following fields are only filled when the chapter is requested
 	// through the Client.Chapter function.
+	LangName  string   `json:"lang_name"`
 	Hash      string   `json:"hash"`
 	Server    string   `json:"server"`
-	Pages     []string `json:"pages"`
+	Pages     []string `json:"page_array"`
 	LongStrip int      `json:"long_strip"`
 	Status    string   `json:"status"`
 }
