@@ -10,29 +10,31 @@ import (
 
 // Client is a MangaRock Client.
 type Client struct {
-	base   string
-	client *http.Client
+	base, path string
+	client     *http.Client
 }
 
-// WithBase sets the API base.
+// WithBase sets the MangaDex base.
 func WithBase(base string) func(*Client) {
-	return func(md *Client) {
-		md.base = base
-	}
+	return func(md *Client) { md.base = base }
+}
+
+// WithPath replaces the default path. Might be used on a API version.
+func WithPath(path string) func(*Client) {
+	return func(md *Client) { md.path = path }
 }
 
 // WithHTTPClient makes the manga client use a given http.Client to make
 // requests.
 func WithHTTPClient(c *http.Client) func(*Client) {
-	return func(md *Client) {
-		md.client = c
-	}
+	return func(md *Client) { md.client = c }
 }
 
 // New returns a new MangaRock Client.
 func New(options ...func(*Client)) *Client {
 	c := &Client{
-		base:   "https://mangadex.org/api/",
+		base:   "https://mangadex.org/",
+		path:   "/api/",
 		client: &http.Client{},
 	}
 	for _, option := range options {
@@ -43,7 +45,7 @@ func New(options ...func(*Client)) *Client {
 
 // get sends a HTTP GET request.
 func (c *Client) get(id, t string) (json.RawMessage, error) {
-	req, err := http.NewRequest(http.MethodGet, c.base, nil)
+	req, err := http.NewRequest(http.MethodGet, c.base+c.path, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not create get request")
 	}

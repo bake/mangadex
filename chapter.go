@@ -45,6 +45,9 @@ func (c *Client) Chapter(id string) (Chapter, error) {
 	if chapter.Status != "OK" {
 		return Chapter{}, errors.Errorf("could not get chapter %s: got unexpected status: %s", id, chapter.Status)
 	}
+	if chapter.Server == "" || chapter.Server[0] == '/' {
+		chapter.Server = c.base + chapter.Server
+	}
 	return chapter, nil
 }
 
