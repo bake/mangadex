@@ -19,7 +19,7 @@ func WithBase(base string) func(*Client) {
 	return func(md *Client) { md.base = base }
 }
 
-// WithPath replaces the default path. Might be used on a API version.
+// WithPath replaces the default path. Might be used on a new API version.
 func WithPath(path string) func(*Client) {
 	return func(md *Client) { md.path = path }
 }
@@ -34,7 +34,7 @@ func WithHTTPClient(c *http.Client) func(*Client) {
 func New(options ...func(*Client)) *Client {
 	c := &Client{
 		base:   "https://mangadex.org/",
-		path:   "/api/",
+		path:   "api/",
 		client: &http.Client{},
 	}
 	for _, option := range options {
