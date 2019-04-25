@@ -5,9 +5,9 @@ import (
 	"log"
 	"testing"
 
-	"github.com/bakerolls/httpcache"
-	"github.com/bakerolls/httpcache/diskcache"
-	"github.com/bakerolls/mangadex"
+	"github.com/bake/httpcache"
+	"github.com/bake/httpcache/diskcache"
+	"github.com/bake/mangadex"
 )
 
 var md *mangadex.Client
