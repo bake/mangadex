@@ -1,3 +1,4 @@
+// Package mangadex is a client for the MangaDex API.
 package mangadex
 
 import (
