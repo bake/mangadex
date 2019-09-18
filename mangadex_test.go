@@ -14,7 +14,11 @@ var md *mangadex.Client
 
 func init() {
 	c := httpcache.New(diskcache.New("testdata", diskcache.NoExpiration))
-	md = mangadex.New(mangadex.WithHTTPClient(c.Client()))
+	md = mangadex.New(
+		mangadex.WithHTTPClient(c.Client()),
+		mangadex.WithBase("https://mangadex.org/"),
+		mangadex.WithPath("api/"),
+	)
 }
 
 func ExampleManga() {
@@ -22,8 +26,8 @@ func ExampleManga() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(m.Title)
-	// Output: Wonder Cat Kyuu-chan
+	fmt.Printf("%s by %s", m, m.Author)
+	// Output: Wonder Cat Kyuu-chan by Nitori Sasami
 }
 
 func TestManga(t *testing.T) {
@@ -46,13 +50,16 @@ func ExampleChapter() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(c.Title)
-	// Output: Cool Day
+	fmt.Printf("%s (Volume %s, Chapter %s)", c, c.Volume, c.Chapter)
+	// Output: Cool Day (Volume 3, Chapter 253)
 }
 
 func TestChapter(t *testing.T) {
-	tt := []struct{ id, title string }{
-		{"517244", "Cool Day"},
+	tt := []struct {
+		id, title string
+		images    int
+	}{
+		{"517244", "Cool Day", 1},
 	}
 	for _, tc := range tt {
 		c, err := md.Chapter(tc.id)
@@ -61,6 +68,9 @@ func TestChapter(t *testing.T) {
 		}
 		if c.Title != tc.title {
 			t.Fatalf("expected title to be %s, got %s", tc.title, c.Title)
+		}
+		if len(c.Images()) != tc.images {
+			t.Fatalf("expected chapter to have %d images, not %d", tc.images, len(c.Images()))
 		}
 	}
 }
