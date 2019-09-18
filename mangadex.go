@@ -9,7 +9,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Client is a MangaRock Client.
+// Client implements a way to talk to MangaDex' API.
 type Client struct {
 	base, path string
 	client     *http.Client
@@ -31,12 +31,12 @@ func WithHTTPClient(c *http.Client) func(*Client) {
 	return func(md *Client) { md.client = c }
 }
 
-// New returns a new MangaRock Client.
+// New returns a new MangaDex Client.
 func New(options ...func(*Client)) *Client {
 	c := &Client{
 		base:   "https://mangadex.org/",
 		path:   "api/",
-		client: &http.Client{},
+		client: http.DefaultClient,
 	}
 	for _, option := range options {
 		option(c)
