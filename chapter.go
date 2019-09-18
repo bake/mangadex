@@ -14,6 +14,7 @@ type Chapter struct {
 	Chapter    json.Number `json:"chapter"`
 	Title      string      `json:"title"`
 	LangCode   string      `json:"lang_code"`
+	MangaID    json.Number `json:"manga_id"`
 	GroupID    int         `json:"group_id"`
 	GroupName  string      `json:"group_name"`
 	GroupID2   int         `json:"group_id_2"`
