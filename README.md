@@ -17,3 +17,15 @@ func main() {
   // Wonder Cat Kyuu-chan
 }
 ```
+
+```go
+func main() {
+  md := mangadex.New()
+  c, err := md.Chapter("517244")
+  if err != nil {
+      log.Fatal(err)
+  }
+  fmt.Printf("%s (Volume %s, Chapter %s)", c, c.Volume, c.Chapter)
+  // Cool Day (Volume 3, Chapter 253)
+}
+```
