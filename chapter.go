@@ -63,3 +63,20 @@ func (ch Chapter) Images() []string {
 	}
 	return images
 }
+
+// chapters is a sortable slice of chapters.
+type chapters []Chapter
+
+func (cs chapters) Len() int { return len(cs) }
+func (cs chapters) Less(i, j int) bool {
+	a, err := cs[i].ID.Int64()
+	if err != nil {
+		return false
+	}
+	b, err := cs[j].ID.Int64()
+	if err != nil {
+		return false
+	}
+	return a < b
+}
+func (cs chapters) Swap(i, j int) { cs[i], cs[j] = cs[j], cs[i] }

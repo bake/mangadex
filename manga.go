@@ -2,6 +2,7 @@ package mangadex
 
 import (
 	"encoding/json"
+	"sort"
 
 	"github.com/pkg/errors"
 )
@@ -30,7 +31,7 @@ type Manga struct {
 	Chapters    map[string]Chapter `json:"chapters"`
 }
 
-// Manga fetches a manga. The returned chapter slice is a second representation
+// Manga fetches a manga. The returned chapter slice is a sorted representation
 // of the mangas Chapters map.
 func (c *Client) Manga(id string) (Manga, []Chapter, error) {
 	raw, err := c.get(id, "manga")
@@ -45,12 +46,13 @@ func (c *Client) Manga(id string) (Manga, []Chapter, error) {
 		return Manga{}, nil, errors.Errorf("could not get manga %s: got unexpected status: %s", id, res.Status)
 	}
 	res.Manga.ID = json.Number(id)
-	var chapters []Chapter
+	var cs chapters
 	for id, chapter := range res.Chapters {
 		chapter.ID = id
-		chapters = append(chapters, chapter)
+		cs = append(cs, chapter)
 	}
-	return res.Manga, chapters, nil
+	sort.Sort(cs)
+	return res.Manga, cs, nil
 }
 
 func (m Manga) String() string { return m.Title }

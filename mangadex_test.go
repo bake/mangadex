@@ -31,16 +31,19 @@ func ExampleManga() {
 }
 
 func TestManga(t *testing.T) {
-	tt := []struct{ id, title string }{
-		{"23279", "Wonder Cat Kyuu-chan"},
+	tt := []struct{ id, title, cid string }{
+		{"23279", "Wonder Cat Kyuu-chan", "26457"},
 	}
 	for _, tc := range tt {
-		m, _, err := md.Manga(tc.id)
+		m, cs, err := md.Manga(tc.id)
 		if err != nil {
 			t.Fatal(err)
 		}
 		if m.Title != tc.title {
 			t.Fatalf("expected title to be %s, got %s", tc.title, m.Title)
+		}
+		if cs[0].ID.String() != tc.cid {
+			t.Fatalf("expected first chapter id to be %s, got %s", tc.cid, cs[0].ID)
 		}
 	}
 }
