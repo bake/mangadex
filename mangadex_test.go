@@ -31,13 +31,20 @@ func ExampleManga() {
 }
 
 func TestManga(t *testing.T) {
-	tt := []struct{ id, title, cid string }{
-		{"23279", "Wonder Cat Kyuu-chan", "26457"},
+	tt := []struct {
+		id, title, cid string
+		err            bool
+	}{
+		{"23279", "Wonder Cat Kyuu-chan", "26457", false},
+		{"0", "", "", true},
 	}
 	for _, tc := range tt {
 		m, cs, err := md.Manga(tc.id)
-		if err != nil {
-			t.Fatal(err)
+		if !tc.err && err != nil {
+			t.Fatalf("expected manga to exist, got %q", err)
+		}
+		if tc.err {
+			continue
 		}
 		if m.Title != tc.title {
 			t.Fatalf("expected title to be %s, got %s", tc.title, m.Title)
@@ -61,13 +68,18 @@ func TestChapter(t *testing.T) {
 	tt := []struct {
 		id, title string
 		images    int
+		err       bool
 	}{
-		{"517244", "Cool Day", 1},
+		{"517244", "Cool Day", 1, false},
+		{"0", "", 0, true},
 	}
 	for _, tc := range tt {
 		c, err := md.Chapter(tc.id)
-		if err != nil {
-			t.Fatal(err)
+		if !tc.err && err != nil {
+			t.Fatalf("expected chapter to exist, got %q", err)
+		}
+		if tc.err {
+			continue
 		}
 		if c.Title != tc.title {
 			t.Fatalf("expected title to be %s, got %s", tc.title, c.Title)
