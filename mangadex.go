@@ -54,9 +54,12 @@ func (c *Client) get(id, t string) (json.RawMessage, error) {
 	req.URL.RawQuery = query.Encode()
 	res, err := c.client.Do(req)
 	if err != nil {
-		return nil, errors.Wrapf(err, "cound not get %s", req.URL)
+		return nil, errors.Wrapf(err, "could not get %s", req.URL)
 	}
 	defer res.Body.Close()
+	if res.StatusCode != http.StatusOK {
+		return nil, errors.Errorf("could not get %s: %s", req.URL, res.Status)
+	}
 	var raw json.RawMessage
 	if err := json.NewDecoder(res.Body).Decode(&raw); err != nil {
 		return nil, errors.Wrap(err, "could not decode response")
