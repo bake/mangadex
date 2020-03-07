@@ -15,24 +15,27 @@ type Client struct {
 	client     *http.Client
 }
 
+// An OptionFunc can be used to modify the Tapas client.
+type OptionFunc func(*Client)
+
 // WithBase sets the MangaDex base.
-func WithBase(base string) func(*Client) {
+func WithBase(base string) OptionFunc {
 	return func(md *Client) { md.base = base }
 }
 
 // WithPath replaces the default path. Might be used on a new API version.
-func WithPath(path string) func(*Client) {
+func WithPath(path string) OptionFunc {
 	return func(md *Client) { md.path = path }
 }
 
 // WithHTTPClient makes the manga client use a given http.Client to make
 // requests.
-func WithHTTPClient(c *http.Client) func(*Client) {
+func WithHTTPClient(c *http.Client) OptionFunc {
 	return func(md *Client) { md.client = c }
 }
 
 // New returns a new MangaDex Client.
-func New(options ...func(*Client)) *Client {
+func New(options ...OptionFunc) *Client {
 	c := &Client{
 		base:   "https://mangadex.org/",
 		path:   "api/",
