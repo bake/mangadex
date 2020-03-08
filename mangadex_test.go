@@ -32,14 +32,16 @@ func ExampleManga() {
 
 func TestManga(t *testing.T) {
 	tt := []struct {
-		id, title, cid string
-		err            bool
+		mid, cid string
+		title    string
+		err      bool
 	}{
-		{"23279", "Wonder Cat Kyuu-chan", "26457", false},
+		{"23279", "26457", "Wonder Cat Kyuu-chan", false},
+		{"45112", "803611", "Tensei Kenja wa Musume to Kurasu", false},
 		{"0", "", "", true},
 	}
 	for _, tc := range tt {
-		m, cs, err := md.Manga(tc.id)
+		m, cs, err := md.Manga(tc.mid)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga to exist, got %q", err)
 		}

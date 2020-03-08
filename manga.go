@@ -8,14 +8,14 @@ import (
 )
 
 type mangaResponse struct {
-	Manga    Manga                   `json:"manga"`
-	Chapters map[json.Number]Chapter `json:"chapter"`
-	Status   string                  `json:"status"`
+	Manga    Manga              `json:"manga"`
+	Chapters map[string]Chapter `json:"chapter"`
+	Status   string             `json:"status"`
 }
 
 // Manga contains information about a given manga.
 type Manga struct {
-	ID          json.Number        `json:"id"`
+	ID          MaybeNumber        `json:"id,omitempty"`
 	CoverURL    string             `json:"cover_url"`
 	Description string             `json:"description"`
 	Title       string             `json:"title"`
@@ -45,10 +45,10 @@ func (c *Client) Manga(id string) (Manga, []Chapter, error) {
 	if res.Status != "OK" {
 		return Manga{}, nil, errors.Errorf("could not get manga %s: got unexpected status: %s", id, res.Status)
 	}
-	res.Manga.ID = json.Number(id)
+	res.Manga.ID = MaybeNumber{json.Number(id)}
 	var cs chapters
 	for id, chapter := range res.Chapters {
-		chapter.ID = id
+		chapter.ID = MaybeNumber{json.Number(id)}
 		cs = append(cs, chapter)
 	}
 	sort.Sort(cs)

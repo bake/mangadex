@@ -9,12 +9,12 @@ import (
 // Chapter contains information about a chapter. Some fields may be left empty
 // when returned by the Manga function.
 type Chapter struct {
-	ID         json.Number `json:"id"`
-	Volume     json.Number `json:"volume"`
-	Chapter    json.Number `json:"chapter"`
+	ID         MaybeNumber `json:"id,omitempty"`
+	Volume     MaybeNumber `json:"volume,omitempty"`
+	Chapter    MaybeNumber `json:"chapter,omitempty"`
 	Title      string      `json:"title"`
 	LangCode   string      `json:"lang_code"`
-	MangaID    json.Number `json:"manga_id"`
+	MangaID    MaybeNumber `json:"manga_id,omitempty"`
 	GroupID    int         `json:"group_id"`
 	GroupName  string      `json:"group_name"`
 	GroupID2   int         `json:"group_id_2"`
@@ -69,11 +69,11 @@ type chapters []Chapter
 
 func (cs chapters) Len() int { return len(cs) }
 func (cs chapters) Less(i, j int) bool {
-	a, err := cs[i].ID.Int64()
+	a, err := cs[i].ID.Float64()
 	if err != nil {
 		return false
 	}
-	b, err := cs[j].ID.Int64()
+	b, err := cs[j].ID.Float64()
 	if err != nil {
 		return false
 	}
