@@ -29,7 +29,7 @@ type Chapter struct {
 	Hash      string   `json:"hash"`
 	Server    string   `json:"server"`
 	Pages     []string `json:"page_array"`
-	LongStrip int      `json:"long_strip"`
+	LongStrip bool     `json:"long_strip"`
 	Status    string   `json:"status"`
 }
 
