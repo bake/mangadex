@@ -10,12 +10,12 @@ func TestMangaChapters(t *testing.T) {
 		mid string
 		err bool
 	}{
-		{"23279", false},
 		{"0", true},
+		{"23279", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		cs, err := md.MangaChapters(ctx, tc.mid)
+		cs, err := md.MangaChapters(ctx, tc.mid, nil)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga %s to have chapters, got %q", tc.mid, err)
 		}
@@ -23,7 +23,7 @@ func TestMangaChapters(t *testing.T) {
 			continue
 		}
 		if len(cs) == 0 {
-			t.Fatalf("expected manga %s to have chapters", tc.mid)
+			t.Fatalf("expected manga %s to have more than 0 chapters, got %d", tc.mid, len(cs))
 		}
 	}
 }

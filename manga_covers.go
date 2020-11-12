@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"net/url"
 
 	"github.com/pkg/errors"
 )
@@ -14,8 +15,8 @@ type Cover struct {
 }
 
 // MangaCovers returns a slice of manga covers.
-func (c *Client) MangaCovers(ctx context.Context, id string) ([]Cover, error) {
-	raw, err := c.get(ctx, "/manga/"+id+"/covers", nil)
+func (c *Client) MangaCovers(ctx context.Context, id string, query url.Values) ([]Cover, error) {
+	raw, err := c.get(ctx, "/manga/"+id+"/covers", query)
 	if err != nil {
 		return nil, errors.Wrapf(err, "could not get manga %s", id)
 	}

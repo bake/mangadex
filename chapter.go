@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"net/url"
 
 	"github.com/pkg/errors"
 )
@@ -17,8 +18,8 @@ type Chapter struct {
 }
 
 // Chapter gets a chapter by ID or hash.
-func (c *Client) Chapter(ctx context.Context, id string) (Chapter, error) {
-	raw, err := c.get(ctx, "/chapter/"+id, nil)
+func (c *Client) Chapter(ctx context.Context, id string, query url.Values) (Chapter, error) {
+	raw, err := c.get(ctx, "/chapter/"+id, query)
 	if err != nil {
 		return Chapter{}, errors.Wrapf(err, "could not get chapter %s", id)
 	}

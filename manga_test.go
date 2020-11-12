@@ -5,26 +5,11 @@ import (
 	"fmt"
 	"log"
 	"testing"
-
-	"github.com/bake/httpcache"
-	"github.com/bake/httpcache/diskcache"
-	"github.com/bake/mangadex/v2"
 )
-
-var md *mangadex.Client
-
-func init() {
-	c := httpcache.New(diskcache.New("testdata", diskcache.NoExpiration))
-	md = mangadex.New(
-		mangadex.WithHTTPClient(c.Client()),
-		mangadex.WithBase("https://mangadex.org"),
-		mangadex.WithPath("/api/v2"),
-	)
-}
 
 func ExampleManga() {
 	ctx := context.TODO()
-	m, err := md.Manga(ctx, "23279")
+	m, err := md.Manga(ctx, "23279", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -44,7 +29,7 @@ func TestManga(t *testing.T) {
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		m, err := md.Manga(ctx, tc.mid)
+		m, err := md.Manga(ctx, tc.mid, nil)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga to exist, got %q", err)
 		}
@@ -53,6 +38,25 @@ func TestManga(t *testing.T) {
 		}
 		if m.Title != tc.title {
 			t.Fatalf("expected title to be %s, got %s", tc.title, m.Title)
+		}
+	}
+}
+
+func TestMangaError(t *testing.T) {
+	tt := []struct {
+		mid     string
+		message string
+		err     bool
+	}{
+		{"", "", true},
+		{"0", "", true},
+		{"test", "", true},
+	}
+	for _, tc := range tt {
+		ctx := context.Background()
+		m, err := md.Manga(ctx, tc.mid, nil)
+		if !tc.err && err != nil {
+			t.Fatalf("expected manga %s to not exist, got %q", tc.mid, m)
 		}
 	}
 }

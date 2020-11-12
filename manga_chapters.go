@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"net/url"
 
 	"github.com/pkg/errors"
 )
@@ -25,8 +26,8 @@ type PreviewChapter struct {
 }
 
 // MangaChapters returns chapters of a manga.
-func (c *Client) MangaChapters(ctx context.Context, id string) ([]PreviewChapter, error) {
-	raw, err := c.get(ctx, "/manga/"+id+"/chapters", nil)
+func (c *Client) MangaChapters(ctx context.Context, id string, query url.Values) ([]PreviewChapter, error) {
+	raw, err := c.get(ctx, "/manga/"+id+"/chapters", query)
 	if err != nil {
 		return nil, errors.Wrapf(err, "could not get chapters of manga %s", id)
 	}

@@ -9,7 +9,7 @@ import (
 
 func ExampleChapter() {
 	ctx := context.TODO()
-	c, err := md.Chapter(ctx, "517244")
+	c, err := md.Chapter(ctx, "517244", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,7 +28,7 @@ func TestChapter(t *testing.T) {
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		c, err := md.Chapter(ctx, tc.id)
+		c, err := md.Chapter(ctx, tc.id, nil)
 		if !tc.err && err != nil {
 			t.Fatalf("expected chapter to exist, got %q", err)
 		}

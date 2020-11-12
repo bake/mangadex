@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"net/url"
 
 	"github.com/pkg/errors"
 )
@@ -44,8 +45,8 @@ type Manga struct {
 }
 
 // Manga fetches a manga.
-func (c *Client) Manga(ctx context.Context, id string) (Manga, error) {
-	raw, err := c.get(ctx, "/manga/"+id, nil)
+func (c *Client) Manga(ctx context.Context, id string, query url.Values) (Manga, error) {
+	raw, err := c.get(ctx, "/manga/"+id, query)
 	if err != nil {
 		return Manga{}, errors.Wrapf(err, "could not get manga %s", id)
 	}

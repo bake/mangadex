@@ -48,12 +48,6 @@ func New(options ...OptionFunc) *Client {
 	return c
 }
 
-type response struct {
-	Code   int             `json:"code"`
-	Status string          `json:"status"`
-	Data   json.RawMessage `json:"data"`
-}
-
 // get sends a HTTP GET request.
 func (c *Client) get(ctx context.Context, path string, query url.Values) (json.RawMessage, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.base+c.path+path, nil)
@@ -69,12 +63,17 @@ func (c *Client) get(ctx context.Context, path string, query url.Values) (json.R
 	if res.StatusCode != http.StatusOK {
 		return nil, errors.Errorf("could not get %s: %s", req.URL, res.Status)
 	}
-	var pay response
-	if err := json.NewDecoder(res.Body).Decode(&pay); err != nil {
+	var payload struct {
+		Code    int             `json:"code"`
+		Status  string          `json:"status"`
+		Message string          `json:"message"`
+		Data    json.RawMessage `json:"data"`
+	}
+	if err := json.NewDecoder(res.Body).Decode(&payload); err != nil {
 		return nil, errors.Wrap(err, "could not decode response")
 	}
-	if pay.Code != http.StatusOK {
-		return nil, errors.Errorf("could not get %s: %s", req.URL, res.Status)
+	if payload.Code != http.StatusOK {
+		return nil, errors.Errorf("could not get %s: %s", req.URL, payload.Message)
 	}
-	return pay.Data, nil
+	return payload.Data, nil
 }

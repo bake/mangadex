@@ -17,7 +17,7 @@ func TestMangaCovers(t *testing.T) {
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		cs, err := md.MangaCovers(ctx, tc.mid)
+		cs, err := md.MangaCovers(ctx, tc.mid, nil)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga %s to have covers, got %q", tc.mid, err)
 		}
