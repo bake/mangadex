@@ -1,0 +1,9 @@
+HTTP/2.0 200 OK
+Connection: close
+Content-Security-Policy: upgrade-insecure-requests;
+Content-Type: application/json
+Date: Thu, 12 Nov 2020 18:02:33 GMT
+Server: ddos-guard
+Set-Cookie: __ddg1=edO7nroadsmF7uMTLzcA; Domain=.mangadex.org; HttpOnly; Path=/; Expires=Fri, 12-Nov-2021 18:02:32 GMT
+
+{"code":200,"status":"OK","data":[{"volume":"1","url":"https:\/\/mangadex.org\/images\/covers\/23279v1.png?1588597138"},{"volume":"1jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v1jp.jpg?1551037815"},{"volume":"2","url":"https:\/\/mangadex.org\/images\/covers\/23279v2.jpg?1545706599"},{"volume":"2jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v2jp.jpg?1551037894"},{"volume":"3","url":"https:\/\/mangadex.org\/images\/covers\/23279v3.jpg?1555585746"},{"volume":"3jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v3jp.jpg?1557816752"},{"volume":"4","url":"https:\/\/mangadex.org\/images\/covers\/23279v4.png?1588597139"},{"volume":"4jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v4jp.jpg?1569028325"},{"volume":"5","url":"https:\/\/mangadex.org\/images\/covers\/23279v5.jpg?1584731732"},{"volume":"5jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v5jp.jpg?1578321270"},{"volume":"6","url":"https:\/\/mangadex.org\/images\/covers\/23279v6.jpg?1592149957"},{"volume":"6jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v6jp.jpg?1591839430"},{"volume":"7jp","url":"https:\/\/mangadex.org\/images\/covers\/23279v7jp.jpg?1605040630"}]}

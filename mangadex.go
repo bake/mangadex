@@ -37,8 +37,8 @@ func WithHTTPClient(c *http.Client) OptionFunc {
 // New returns a new MangaDex Client.
 func New(options ...OptionFunc) *Client {
 	c := &Client{
-		base:   "https://mangadex.org/",
-		path:   "api/",
+		base:   "https://mangadex.org",
+		path:   "/api/v2",
 		client: http.DefaultClient,
 	}
 	for _, option := range options {
@@ -47,13 +47,18 @@ func New(options ...OptionFunc) *Client {
 	return c
 }
 
+type response struct {
+	Code   int             `json:"code"`
+	Status string          `json:"status"`
+	Data   json.RawMessage `json:"data"`
+}
+
 // get sends a HTTP GET request.
-func (c *Client) get(id, t string) (json.RawMessage, error) {
-	req, err := http.NewRequest(http.MethodGet, c.base+c.path, nil)
+func (c *Client) get(path string, query url.Values) (json.RawMessage, error) {
+	req, err := http.NewRequest(http.MethodGet, c.base+c.path+path, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not create get request")
 	}
-	query := url.Values{"id": []string{id}, "type": []string{t}}
 	req.URL.RawQuery = query.Encode()
 	res, err := c.client.Do(req)
 	if err != nil {
@@ -63,9 +68,12 @@ func (c *Client) get(id, t string) (json.RawMessage, error) {
 	if res.StatusCode != http.StatusOK {
 		return nil, errors.Errorf("could not get %s: %s", req.URL, res.Status)
 	}
-	var raw json.RawMessage
-	if err := json.NewDecoder(res.Body).Decode(&raw); err != nil {
+	var pay response
+	if err := json.NewDecoder(res.Body).Decode(&pay); err != nil {
 		return nil, errors.Wrap(err, "could not decode response")
 	}
-	return raw, nil
+	if pay.Code != http.StatusOK {
+		return nil, errors.Errorf("could not get %s: %s", req.URL, res.Status)
+	}
+	return pay.Data, nil
 }

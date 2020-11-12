@@ -2,57 +2,57 @@ package mangadex
 
 import (
 	"encoding/json"
-	"sort"
 
 	"github.com/pkg/errors"
 )
 
-type mangaResponse struct {
-	Manga    Manga              `json:"manga"`
-	Chapters map[string]Chapter `json:"chapter"`
-	Status   string             `json:"status"`
-}
-
 // Manga contains information about a given manga.
 type Manga struct {
-	ID          MaybeNumber        `json:"id,omitempty"`
-	CoverURL    string             `json:"cover_url"`
-	Description string             `json:"description"`
-	Title       string             `json:"title"`
-	Artist      string             `json:"artist"`
-	Author      string             `json:"author"`
-	Status      int                `json:"status"`
-	Genres      []int              `json:"genres"`
-	LastChapter string             `json:"last_chapter"`
-	LangName    string             `json:"lang_name"`
-	LangFlag    string             `json:"lang_flag"`
-	Hentai      int                `json:"hentai"`
-	Links       map[string]string  `json:"links"`
-	Chapters    map[string]Chapter `json:"chapters"`
+	ID          int      `json:"id"`
+	Title       string   `json:"title"`
+	AltTitles   []string `json:"altTitles"`
+	Description string   `json:"description"`
+	Artist      []string `json:"artist"`
+	Author      []string `json:"author"`
+	Publication struct {
+		Language    string `json:"language"`
+		Status      int    `json:"status"`
+		Demographic int    `json:"demographic"`
+	} `json:"publication"`
+	Tags        []int             `json:"tags"`
+	LastChapter interface{}       `json:"lastChapter"`
+	LastVolume  interface{}       `json:"lastVolume"`
+	IsHentai    bool              `json:"isHentai"`
+	Links       map[string]string `json:"links"`
+	Relations   []struct {
+		ID       int    `json:"id"`
+		Title    string `json:"title"`
+		Type     int    `json:"type"`
+		IsHentai bool   `json:"isHentai"`
+	} `json:"relations"`
+	Rating struct {
+		Bayesian float64 `json:"bayesian"`
+		Mean     float64 `json:"mean"`
+		Users    int     `json:"users"`
+	} `json:"rating"`
+	Views        int    `json:"views"`
+	Follows      int    `json:"follows"`
+	Comments     int    `json:"comments"`
+	LastUploaded int    `json:"lastUploaded"`
+	MainCover    string `json:"mainCover"`
 }
 
-// Manga fetches a manga. The returned chapter slice is a sorted representation
-// of the mangas Chapters map.
-func (c *Client) Manga(id string) (Manga, []Chapter, error) {
-	raw, err := c.get(id, "manga")
+// Manga fetches a manga.
+func (c *Client) Manga(id string) (Manga, error) {
+	raw, err := c.get("/manga/"+id, nil)
 	if err != nil {
-		return Manga{}, nil, errors.Wrapf(err, "could not get manga %s", id)
+		return Manga{}, errors.Wrapf(err, "could not get manga %s", id)
 	}
-	var res mangaResponse
+	var res Manga
 	if err := json.Unmarshal(raw, &res); err != nil {
-		return Manga{}, nil, errors.Wrapf(err, "could not unmarshal manga %s", id)
+		return Manga{}, errors.Wrapf(err, "could not unmarshal manga %s", id)
 	}
-	if res.Status != "OK" {
-		return Manga{}, nil, errors.Errorf("could not get manga %s: got unexpected status: %s", id, res.Status)
-	}
-	res.Manga.ID = MaybeNumber{json.Number(id)}
-	var cs chapters
-	for id, chapter := range res.Chapters {
-		chapter.ID = MaybeNumber{json.Number(id)}
-		cs = append(cs, chapter)
-	}
-	sort.Sort(cs)
-	return res.Manga, cs, nil
+	return res, nil
 }
 
 func (m Manga) String() string { return m.Title }

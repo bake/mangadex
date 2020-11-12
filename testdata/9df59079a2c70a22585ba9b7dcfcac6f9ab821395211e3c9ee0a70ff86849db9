@@ -1,0 +1,9 @@
+HTTP/2.0 200 OK
+Connection: close
+Content-Security-Policy: upgrade-insecure-requests;
+Content-Type: application/json
+Date: Thu, 12 Nov 2020 18:02:34 GMT
+Server: ddos-guard
+Set-Cookie: __ddg1=y0e8fPwKLZpD1ayFSon1; Domain=.mangadex.org; HttpOnly; Path=/; Expires=Fri, 12-Nov-2021 18:02:33 GMT
+
+{"code":200,"status":"OK","data":{"id":45112,"title":"Tensei Kenja wa Musume to Kurasu","altTitles":["The Reincarnated Sage Lives With His Daughters","\u8ee2\u751f\u8ce2\u8005\u306f\u5a18\u3068\u66ae\u3089\u3059\u3002"],"description":"Meet Kento Oonari, salaryman in hell.\r\nOverworked by his bosses, his head surely whirled.\r\nHe dies, but meets up with a god called Raidel\r\nWho tells him that he&rsquo;ll be sent to a new world.\r\n\r\nKento's fairly cautious - he&rsquo;s read this before.  \r\nAnd so, to the god, he begs for one thing:\r\n&ldquo;I just want to live a slow life, nothing more.\r\n&ldquo;Just give me a house and a skill for farming.&rdquo;\r\n\r\nSo Kento is sent to a medieval age\r\nTo live a nice, slow life. But what a surprise!\r\nThe god gave him the powers of a Great Sage!\r\nAnd Kento used magic in front of commoner eyes!\r\n\r\nSo join us today, as we read of this man:\r\nHis cheat skills, his slow life, and his little girl clan.\r\n\r\n[url=https:\/\/ncode.syosetu.com\/n4302es\/]Original WN[\/url]","artist":["Uzaki Uso"],"author":["Kotohira Ryo"],"publication":{"language":"jp","status":1,"demographic":0},"tags":[5,31,41,42,65],"lastChapter":null,"lastVolume":null,"isHentai":false,"links":{"al":"119073","ap":"tensei-kenja-wa-musume-to-kurasu","kt":"57083","mu":"162804","raw":"https:\/\/seiga.nicovideo.jp\/comic\/45295"},"relations":[],"rating":{"bayesian":7.63,"mean":7.58,"users":610},"views":387161,"follows":17926,"comments":102,"lastUploaded":1603104824,"mainCover":"https:\/\/mangadex.org\/images\/manga\/45112.jpg?1580472947"}}
