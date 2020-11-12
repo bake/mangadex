@@ -1,6 +1,7 @@
 package mangadex_test
 
 import (
+	"context"
 	"testing"
 )
 
@@ -13,7 +14,8 @@ func TestMangaChapters(t *testing.T) {
 		{"0", true},
 	}
 	for _, tc := range tt {
-		cs, err := md.MangaChapters(tc.mid)
+		ctx := context.Background()
+		cs, err := md.MangaChapters(ctx, tc.mid)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga %s to have chapters, got %q", tc.mid, err)
 		}

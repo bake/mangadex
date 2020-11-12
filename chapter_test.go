@@ -1,13 +1,15 @@
 package mangadex_test
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"testing"
 )
 
 func ExampleChapter() {
-	c, err := md.Chapter("517244")
+	ctx := context.TODO()
+	c, err := md.Chapter(ctx, "517244")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -25,7 +27,8 @@ func TestChapter(t *testing.T) {
 		{"0", "", 0, true},
 	}
 	for _, tc := range tt {
-		c, err := md.Chapter(tc.id)
+		ctx := context.Background()
+		c, err := md.Chapter(ctx, tc.id)
 		if !tc.err && err != nil {
 			t.Fatalf("expected chapter to exist, got %q", err)
 		}

@@ -1,13 +1,14 @@
 package mangadex_test
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"testing"
 
 	"github.com/bake/httpcache"
 	"github.com/bake/httpcache/diskcache"
-	"github.com/bake/mangadex"
+	"github.com/bake/mangadex/v2"
 )
 
 var md *mangadex.Client
@@ -22,7 +23,8 @@ func init() {
 }
 
 func ExampleManga() {
-	m, err := md.Manga("23279")
+	ctx := context.TODO()
+	m, err := md.Manga(ctx, "23279")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,7 +43,8 @@ func TestManga(t *testing.T) {
 		{"0", "", true},
 	}
 	for _, tc := range tt {
-		m, err := md.Manga(tc.mid)
+		ctx := context.Background()
+		m, err := md.Manga(ctx, tc.mid)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga to exist, got %q", err)
 		}

@@ -1,6 +1,7 @@
 package mangadex_test
 
 import (
+	"context"
 	"testing"
 )
 
@@ -15,7 +16,8 @@ func TestMangaCovers(t *testing.T) {
 		{"0", 0, "", "", true},
 	}
 	for _, tc := range tt {
-		cs, err := md.MangaCovers(tc.mid)
+		ctx := context.Background()
+		cs, err := md.MangaCovers(ctx, tc.mid)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga %s to have covers, got %q", tc.mid, err)
 		}

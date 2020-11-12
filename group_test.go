@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/bake/mangadex"
+	"github.com/bake/mangadex/v2"
 )
 
 func TestGroup(t *testing.T) {

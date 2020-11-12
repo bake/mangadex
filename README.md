@@ -11,7 +11,8 @@ A Go client for the MangaDex API v2.
 ```go
 func main() {
   md := mangadex.New()
-  m, err := md.Manga("23279")
+  ctx := context.TODO()
+  m, err := md.Manga(ctx, "23279")
   if err != nil {
     log.Fatal(err)
   }
@@ -23,7 +24,8 @@ func main() {
 ```go
 func main() {
   md := mangadex.New()
-  c, err := md.Chapter("517244")
+  ctx := context.TODO()
+  c, err := md.Chapter(ctx, "517244")
   if err != nil {
     log.Fatal(err)
   }

@@ -2,6 +2,7 @@
 package mangadex
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 	"net/url"
@@ -54,8 +55,8 @@ type response struct {
 }
 
 // get sends a HTTP GET request.
-func (c *Client) get(path string, query url.Values) (json.RawMessage, error) {
-	req, err := http.NewRequest(http.MethodGet, c.base+c.path+path, nil)
+func (c *Client) get(ctx context.Context, path string, query url.Values) (json.RawMessage, error) {
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.base+c.path+path, nil)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not create get request")
 	}
