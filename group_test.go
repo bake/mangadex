@@ -1,6 +1,7 @@
 package mangadex_test
 
 import (
+	"context"
 	"encoding/json"
 	"testing"
 
@@ -9,16 +10,39 @@ import (
 
 func TestGroup(t *testing.T) {
 	tt := []struct {
-		data  []byte
-		group mangadex.Group
-		err   bool
+		id, name string
+		err      bool
 	}{
-		{[]byte(""), mangadex.Group{}, true},
-		{[]byte("314"), mangadex.Group{314, ""}, false},
-		{[]byte("{\"id\":314,\"name\":\"Pi\"}"), mangadex.Group{314, "Pi"}, false},
+		{"0", "", true},
+		{"27", "Helvetica Scans", false},
 	}
 	for _, tc := range tt {
-		var g mangadex.Group
+		ctx := context.Background()
+		g, err := md.Group(ctx, tc.id, nil)
+		if !tc.err && err != nil {
+			t.Fatalf("expected group %s to not exist, got %q", tc.id, err)
+		}
+		if tc.err {
+			continue
+		}
+		if g.Name != tc.name {
+			t.Fatalf("expected group %s to have the name %q, got %q", tc.id, tc.name, g.Name)
+		}
+	}
+}
+
+func TestPreviewGroup(t *testing.T) {
+	tt := []struct {
+		data  []byte
+		group mangadex.PreviewGroup
+		err   bool
+	}{
+		{[]byte(""), mangadex.PreviewGroup{}, true},
+		{[]byte("314"), mangadex.PreviewGroup{314, ""}, false},
+		{[]byte("{\"id\":314,\"name\":\"Pi\"}"), mangadex.PreviewGroup{314, "Pi"}, false},
+	}
+	for _, tc := range tt {
+		var g mangadex.PreviewGroup
 		err := json.Unmarshal(tc.data, &g)
 		if !tc.err && err != nil {
 			t.Fatalf("expected group unmarshal to %v, got %q", tc.err, err)
