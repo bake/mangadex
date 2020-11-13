@@ -22,8 +22,8 @@ type Manga struct {
 		Demographic int    `json:"demographic"`
 	} `json:"publication"`
 	Tags        []int             `json:"tags"`
-	LastChapter interface{}       `json:"lastChapter"`
-	LastVolume  interface{}       `json:"lastVolume"`
+	LastChapter string            `json:"lastChapter"`
+	LastVolume  string            `json:"lastVolume"`
 	IsHentai    bool              `json:"isHentai"`
 	Links       map[string]string `json:"links"`
 	Relations   []struct {
