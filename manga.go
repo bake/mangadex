@@ -3,8 +3,8 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
-	"net/url"
 
+	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 )
 
@@ -44,9 +44,16 @@ type Manga struct {
 	MainCover    string `json:"mainCover"`
 }
 
-// Manga fetches a manga.
-func (c *Client) Manga(ctx context.Context, id string, query url.Values) (Manga, error) {
-	raw, err := c.get(ctx, "/manga/"+id, query)
+// MangaOptions contains options that can be passed to the endpoint.
+type MangaOptions struct{}
+
+// Manga returns a manga.
+func (c *Client) Manga(ctx context.Context, id string, opts *MangaOptions) (Manga, error) {
+	values, err := query.Values(opts)
+	if err != nil {
+		return Manga{}, errors.Wrap(err, "could not encode options")
+	}
+	raw, err := c.get(ctx, "/manga/"+id, values)
 	if err != nil {
 		return Manga{}, errors.Wrapf(err, "could not get manga %s", id)
 	}

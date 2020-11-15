@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/url"
 
+	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 )
 
@@ -26,9 +27,20 @@ func (c Chapter) Images() []string {
 	return is
 }
 
-// Chapter gets a chapter by ID or hash.
-func (c *Client) Chapter(ctx context.Context, id string, query url.Values) (Chapter, error) {
-	raw, err := c.get(ctx, "/chapter/"+id, query)
+// ChapterOptions contains options that can be passed to the endpoint.
+type ChapterOptions struct {
+	Server   string `url:"server,omitempty"`    // Override location-based server assignment. Possible values: na, na2.
+	Saver    bool   `url:"saver,omitempty"`     // Use low quality images (data saver).
+	MarkRead bool   `url:"mark_read,omitempty"` // Mark the chapter as read.
+}
+
+// Chapter returns a chapter.
+func (c *Client) Chapter(ctx context.Context, id string, opts *ChapterOptions) (Chapter, error) {
+	values, err := query.Values(opts)
+	if err != nil {
+		return Chapter{}, errors.Wrap(err, "could not encode options")
+	}
+	raw, err := c.get(ctx, "/chapter/"+id, values)
 	if err != nil {
 		return Chapter{}, errors.Wrapf(err, "could not get chapter %s", id)
 	}

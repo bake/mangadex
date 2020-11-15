@@ -3,9 +3,9 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
-	"net/url"
 	"strconv"
 
+	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
 )
 
@@ -36,9 +36,16 @@ type Group struct {
 	Banner      string   `json:"banner"`
 }
 
-// Group fetches a group.
-func (c *Client) Group(ctx context.Context, id string, query url.Values) (Group, error) {
-	raw, err := c.get(ctx, "/group/"+id, query)
+// GroupOptions contains options that can be passed to the endpoint.
+type GroupOptions struct{}
+
+// Group returns a group.
+func (c *Client) Group(ctx context.Context, id string, opts *GroupOptions) (Group, error) {
+	values, err := query.Values(opts)
+	if err != nil {
+		return Group{}, errors.Wrap(err, "could not encode options")
+	}
+	raw, err := c.get(ctx, "/group/"+id, values)
 	if err != nil {
 		return Group{}, errors.Wrapf(err, "could not get group %s", id)
 	}
