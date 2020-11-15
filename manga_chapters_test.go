@@ -23,7 +23,7 @@ func TestMangaChapters(t *testing.T) {
 			continue
 		}
 		if len(cs) == 0 {
-			t.Fatalf("expected manga %s to have more than 0 chapters, got %d", tc.mid, len(cs))
+			t.Fatalf("expected manga %s to have more than 0 chapters", tc.mid)
 		}
 	}
 }

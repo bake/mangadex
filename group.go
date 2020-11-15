@@ -12,28 +12,28 @@ import (
 // Group contains information about a given group.
 type Group struct {
 	PreviewGroup
-	AltNames    string   `json:"altNames"`
-	Language    string   `json:"language"`
-	Leader      Member   `json:"leader"`
-	Members     []Member `json:"members"`
-	Description string   `json:"description"`
-	Website     string   `json:"website"`
-	Discord     string   `json:"discord"`
-	IRCServer   string   `json:"ircServer"`
-	IRCChannel  string   `json:"ircChannel"`
-	Email       string   `json:"email"`
-	Founded     string   `json:"founded"`
-	Likes       int      `json:"likes"`
-	Follows     int      `json:"follows"`
-	Views       int      `json:"views"`
-	Chapters    int      `json:"chapters"`
-	ThreadID    int      `json:"threadId"`
-	ThreadPosts int      `json:"threadPosts"`
-	IsLocked    bool     `json:"isLocked"`
-	IsInactive  bool     `json:"isInactive"`
-	Delay       int      `json:"delay"`
-	LastUpdated int      `json:"lastUpdated"`
-	Banner      string   `json:"banner"`
+	AltNames    string    `json:"altNames"`
+	Language    string    `json:"language"`
+	Leader      Member    `json:"leader"`
+	Members     []Member  `json:"members"`
+	Description string    `json:"description"`
+	Website     string    `json:"website"`
+	Discord     string    `json:"discord"`
+	IRCServer   string    `json:"ircServer"`
+	IRCChannel  string    `json:"ircChannel"`
+	Email       string    `json:"email"`
+	Founded     string    `json:"founded"`
+	Likes       int       `json:"likes"`
+	Follows     int       `json:"follows"`
+	Views       int       `json:"views"`
+	Chapters    int       `json:"chapters"`
+	ThreadID    int       `json:"threadId"`
+	ThreadPosts int       `json:"threadPosts"`
+	IsLocked    bool      `json:"isLocked"`
+	IsInactive  bool      `json:"isInactive"`
+	Delay       int       `json:"delay"`
+	LastUpdated Timestamp `json:"lastUpdated"`
+	Banner      string    `json:"banner"`
 }
 
 // GroupOptions contains options that can be passed to the endpoint.

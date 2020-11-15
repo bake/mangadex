@@ -19,7 +19,7 @@ type PreviewChapter struct {
 	Language   string         `json:"language"`
 	Groups     []PreviewGroup `json:"groups"`
 	Uploader   int            `json:"uploader"`
-	Timestamp  int            `json:"timestamp"`
+	Timestamp  Timestamp      `json:"timestamp"`
 	Comments   int            `json:"comments"`
 	Views      int            `json:"views"`
 }

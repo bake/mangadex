@@ -37,11 +37,11 @@ type Manga struct {
 		Mean     float64 `json:"mean"`
 		Users    int     `json:"users"`
 	} `json:"rating"`
-	Views        int    `json:"views"`
-	Follows      int    `json:"follows"`
-	Comments     int    `json:"comments"`
-	LastUploaded int    `json:"lastUploaded"`
-	MainCover    string `json:"mainCover"`
+	Views        int       `json:"views"`
+	Follows      int       `json:"follows"`
+	Comments     int       `json:"comments"`
+	LastUploaded Timestamp `json:"lastUploaded"`
+	MainCover    string    `json:"mainCover"`
 }
 
 // MangaOptions contains options that can be passed to the endpoint.
