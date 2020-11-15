@@ -1,0 +1,9 @@
+HTTP/2.0 200 OK
+Connection: close
+Content-Security-Policy: upgrade-insecure-requests;
+Content-Type: application/json
+Date: Sun, 15 Nov 2020 15:16:26 GMT
+Server: ddos-guard
+Set-Cookie: __ddg1=TRtVYJuFMBfF0CaHs0gK; Domain=.mangadex.org; HttpOnly; Path=/; Expires=Mon, 15-Nov-2021 15:16:25 GMT
+
+{"code":200,"status":"OK","data":{"id":517244,"hash":"4aa0fff4f2cd6803bfa5c4558e02bd31","mangaId":23279,"mangaTitle":"Wonder Cat Kyuu-chan","volume":"3","chapter":"253","title":"Cool Day","language":"gb","groups":[{"id":27,"name":"Helvetica Scans"}],"uploader":1905,"timestamp":1547047798,"comments":9,"views":15565,"status":"OK","pages":["m1.png"],"server":"https:\/\/en8s3gs54zfpt.j0njgrwqtmhec.mangadex.network:443\/ZPgm3qbq-Hs3w-80wl_PuizwNuM3fhtO8u4mLKs9gr8P8FasOpZ7OHWSxJFLuhwHq4HTqcJ4xjiCI73b69ZMwyP5e9iG-qmfDJzz3xrrus5AdiV1hAGPVVno_uUIGMd0KuT1zRnBCVRDAFfm_cEry_3tm-cCrWsj7BfKPHL4Wji7sSOABRniNBp4XCEgYckdVaYeIre4e_QRGyZo-DMQH6Ux0hM\/data-saver\/","serverFallback":"https:\/\/s2.mangadex.org\/data-saver\/"}}

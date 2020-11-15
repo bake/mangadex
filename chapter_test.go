@@ -5,11 +5,16 @@ import (
 	"fmt"
 	"log"
 	"testing"
+
+	"github.com/bake/mangadex/v2"
 )
 
 func ExampleChapter() {
 	ctx := context.TODO()
-	c, err := md.Chapter(ctx, "517244", nil)
+	opts := mangadex.ChapterOptions{
+		Saver: true, // Use low quality images.
+	}
+	c, err := md.Chapter(ctx, "517244", &opts)
 	if err != nil {
 		log.Fatal(err)
 	}
