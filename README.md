@@ -1,18 +1,16 @@
 # MangaDex
 
-[![GoDoc](https://godoc.org/github.com/bake/mangadex?status.svg)](https://pkg.go.dev/github.com/bake/mangadex)
+[![GoDoc](https://godoc.org/github.com/bake/mangadex?status.svg)](https://pkg.go.dev/github.com/bake/mangadex/v2)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bake/mangadex)](https://goreportcard.com/report/github.com/bake/mangadex)
 [![codecov](https://codecov.io/gh/bake/mangadex/branch/master/graph/badge.svg)](https://codecov.io/gh/bake/mangadex)
 
 A Go client for the MangaDex API v2.
 
-**v2 is still WIP.**
-
 ```go
 func main() {
   md := mangadex.New()
   ctx := context.TODO()
-  m, err := md.Manga(ctx, "23279", nil)
+  m, err := md.Manga(ctx, 23279, nil)
   if err != nil {
     log.Fatal(err)
   }
@@ -25,7 +23,7 @@ func main() {
 func main() {
   md := mangadex.New()
   ctx := context.TODO()
-  c, err := md.Chapter(ctx, "517244", nil)
+  c, err := md.Chapter(ctx, 517244, nil)
   if err != nil {
     log.Fatal(err)
   }
