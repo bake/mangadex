@@ -7,23 +7,23 @@ import (
 
 func TestUserChapters(t *testing.T) {
 	tt := []struct {
-		id  string
+		id  int
 		err bool
 	}{
-		{"0", true},
-		{"2", false},
+		{0, true},
+		{2, false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
 		cs, err := md.UserChapters(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected user %s to have chapters, got %q", tc.id, err)
+			t.Fatalf("expected user %d to have chapters, got %q", tc.id, err)
 		}
 		if tc.err {
 			continue
 		}
 		if len(cs) == 0 {
-			t.Fatalf("expected user %s to have more than 0 chapters", tc.id)
+			t.Fatalf("expected user %d to have more than 0 chapters", tc.id)
 		}
 	}
 }

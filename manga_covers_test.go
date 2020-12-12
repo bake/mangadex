@@ -7,29 +7,29 @@ import (
 
 func TestMangaCovers(t *testing.T) {
 	tt := []struct {
-		mid         string
+		id          int
 		covers      int
 		volume, url string
 		err         bool
 	}{
-		{"23279", 12, "1", "https://mangadex.org/images/covers/23279v1.png?1588597138", false},
-		{"0", 0, "", "", true},
+		{0, 0, "", "", true},
+		{23279, 12, "1", "https://mangadex.org/images/covers/23279v1.png?1588597138", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		cs, err := md.MangaCovers(ctx, tc.mid, nil)
+		cs, err := md.MangaCovers(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected manga %s to have covers, got %q", tc.mid, err)
+			t.Fatalf("expected manga %d to have covers, got %q", tc.id, err)
 		}
 		if tc.err {
 			continue
 		}
 		if len(cs) < tc.covers {
-			t.Fatalf("expected manga %s to have %d covers, got 0", tc.mid, tc.covers)
+			t.Fatalf("expected manga %d to have %d covers, got 0", tc.id, tc.covers)
 		}
 		c := cs[0]
 		if c.Volume != tc.volume || c.URL != tc.url {
-			t.Fatalf("expected the first cover of manga %s to be (%q, %q), got (%q, %q)", tc.mid, tc.volume, tc.url, c.Volume, c.URL)
+			t.Fatalf("expected the first cover of manga %d to be (%q, %q), got (%q, %q)", tc.id, tc.volume, tc.url, c.Volume, c.URL)
 		}
 	}
 }

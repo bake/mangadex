@@ -14,7 +14,7 @@ func ExampleChapter() {
 	opts := mangadex.ChapterOptions{
 		Saver: true, // Use low quality images.
 	}
-	c, err := md.Chapter(ctx, "517244", &opts)
+	c, err := md.Chapter(ctx, 517244, &opts)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,12 +24,13 @@ func ExampleChapter() {
 
 func TestChapter(t *testing.T) {
 	tt := []struct {
-		id, title string
-		pages     int
-		err       bool
+		id    int
+		title string
+		pages int
+		err   bool
 	}{
-		{"517244", "Cool Day", 1, false},
-		{"0", "", 0, true},
+		{0, "", 0, true},
+		{517244, "Cool Day", 1, false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()

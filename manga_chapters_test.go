@@ -7,23 +7,23 @@ import (
 
 func TestMangaChapters(t *testing.T) {
 	tt := []struct {
-		mid string
+		id  int
 		err bool
 	}{
-		{"0", true},
-		{"23279", false},
+		{0, true},
+		{23279, false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		cs, err := md.MangaChapters(ctx, tc.mid, nil)
+		cs, err := md.MangaChapters(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected manga %s to have chapters, got %q", tc.mid, err)
+			t.Fatalf("expected manga %d to have chapters, got %q", tc.id, err)
 		}
 		if tc.err {
 			continue
 		}
 		if len(cs) == 0 {
-			t.Fatalf("expected manga %s to have more than 0 chapters", tc.mid)
+			t.Fatalf("expected manga %d to have more than 0 chapters", tc.id)
 		}
 	}
 }

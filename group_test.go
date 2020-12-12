@@ -10,23 +10,24 @@ import (
 
 func TestGroup(t *testing.T) {
 	tt := []struct {
-		id, name string
-		err      bool
+		id   int
+		name string
+		err  bool
 	}{
-		{"0", "", true},
-		{"27", "Helvetica Scans", false},
+		{0, "", true},
+		{27, "Helvetica Scans", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
 		g, err := md.Group(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected group %s to not exist, got %q", tc.id, err)
+			t.Fatalf("expected group %d to not exist, got %q", tc.id, err)
 		}
 		if tc.err {
 			continue
 		}
 		if g.Name != tc.name {
-			t.Fatalf("expected group %s to have the name %q, got %q", tc.id, tc.name, g.Name)
+			t.Fatalf("expected group %d to have the name %q, got %q", tc.id, tc.name, g.Name)
 		}
 	}
 }

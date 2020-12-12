@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"time"
 
@@ -44,18 +45,18 @@ type User struct {
 type UserOptions struct{}
 
 // User returns a user.
-func (c *Client) User(ctx context.Context, id string, opts *UserOptions) (User, error) {
+func (c *Client) User(ctx context.Context, id int, opts *UserOptions) (User, error) {
 	values, err := query.Values(opts)
 	if err != nil {
 		return User{}, errors.Wrap(err, "could not encode options")
 	}
-	raw, err := c.get(ctx, "/user/"+id, values)
+	raw, err := c.get(ctx, fmt.Sprintf("/user/%d", id), values)
 	if err != nil {
-		return User{}, errors.Wrapf(err, "could not get user %s", id)
+		return User{}, errors.Wrapf(err, "could not get user %d", id)
 	}
 	var res User
 	if err := json.Unmarshal(raw, &res); err != nil {
-		return User{}, errors.Wrapf(err, "could not unmarshal user %s", id)
+		return User{}, errors.Wrapf(err, "could not unmarshal user %d", id)
 	}
 	return res, nil
 }

@@ -9,7 +9,7 @@ import (
 
 func ExampleManga() {
 	ctx := context.TODO()
-	m, err := md.Manga(ctx, "23279", nil)
+	m, err := md.Manga(ctx, 23279, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -19,17 +19,17 @@ func ExampleManga() {
 
 func TestManga(t *testing.T) {
 	tt := []struct {
-		mid   string
+		id    int
 		title string
 		err   bool
 	}{
-		{"23279", "Wonder Cat Kyuu-chan", false},
-		{"45112", "Tensei Kenja wa Musume to Kurasu", false},
-		{"0", "", true},
+		{0, "", true},
+		{23279, "Wonder Cat Kyuu-chan", false},
+		{45112, "Tensei Kenja wa Musume to Kurasu", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		m, err := md.Manga(ctx, tc.mid, nil)
+		m, err := md.Manga(ctx, tc.id, nil)
 		if !tc.err && err != nil {
 			t.Fatalf("expected manga to exist, got %q", err)
 		}
@@ -44,19 +44,17 @@ func TestManga(t *testing.T) {
 
 func TestMangaError(t *testing.T) {
 	tt := []struct {
-		mid     string
+		id      int
 		message string
 		err     bool
 	}{
-		{"", "", true},
-		{"0", "", true},
-		{"test", "", true},
+		{0, "", true},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
-		m, err := md.Manga(ctx, tc.mid, nil)
+		m, err := md.Manga(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected manga %s to not exist, got %q", tc.mid, m)
+			t.Fatalf("expected manga %d to not exist, got %q", tc.id, m)
 		}
 	}
 }

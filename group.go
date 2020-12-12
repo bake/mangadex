@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"strconv"
 
 	"github.com/google/go-querystring/query"
@@ -40,18 +41,18 @@ type Group struct {
 type GroupOptions struct{}
 
 // Group returns a group.
-func (c *Client) Group(ctx context.Context, id string, opts *GroupOptions) (Group, error) {
+func (c *Client) Group(ctx context.Context, id int, opts *GroupOptions) (Group, error) {
 	values, err := query.Values(opts)
 	if err != nil {
 		return Group{}, errors.Wrap(err, "could not encode options")
 	}
-	raw, err := c.get(ctx, "/group/"+id, values)
+	raw, err := c.get(ctx, fmt.Sprintf("/group/%d", id), values)
 	if err != nil {
-		return Group{}, errors.Wrapf(err, "could not get group %s", id)
+		return Group{}, errors.Wrapf(err, "could not get group %d", id)
 	}
 	var res Group
 	if err := json.Unmarshal(raw, &res); err != nil {
-		return Group{}, errors.Wrapf(err, "could not unmarshal group %s", id)
+		return Group{}, errors.Wrapf(err, "could not unmarshal group %d", id)
 	}
 	return res, nil
 }

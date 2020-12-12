@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"net/url"
 
 	"github.com/google/go-querystring/query"
@@ -35,18 +36,18 @@ type ChapterOptions struct {
 }
 
 // Chapter returns a chapter.
-func (c *Client) Chapter(ctx context.Context, id string, opts *ChapterOptions) (Chapter, error) {
+func (c *Client) Chapter(ctx context.Context, id int, opts *ChapterOptions) (Chapter, error) {
 	values, err := query.Values(opts)
 	if err != nil {
 		return Chapter{}, errors.Wrap(err, "could not encode options")
 	}
-	raw, err := c.get(ctx, "/chapter/"+id, values)
+	raw, err := c.get(ctx, fmt.Sprintf("/chapter/%d", id), values)
 	if err != nil {
-		return Chapter{}, errors.Wrapf(err, "could not get chapter %s", id)
+		return Chapter{}, errors.Wrapf(err, "could not get chapter %d", id)
 	}
 	var res Chapter
 	if err := json.Unmarshal(raw, &res); err != nil {
-		return Chapter{}, errors.Wrapf(err, "could not unmarshal chapter %s", id)
+		return Chapter{}, errors.Wrapf(err, "could not unmarshal chapter %d", id)
 	}
 	return res, nil
 }

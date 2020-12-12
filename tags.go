@@ -3,6 +3,7 @@ package mangadex
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 
 	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
@@ -40,18 +41,18 @@ func (c *Client) Tags(ctx context.Context, opts *TagsOptions) ([]Tag, error) {
 type TagOptions struct{}
 
 // Tag returns a tag.
-func (c *Client) Tag(ctx context.Context, id string, opts *TagOptions) (Tag, error) {
+func (c *Client) Tag(ctx context.Context, id int, opts *TagOptions) (Tag, error) {
 	values, err := query.Values(opts)
 	if err != nil {
 		return Tag{}, errors.Wrap(err, "could not encode options")
 	}
-	raw, err := c.get(ctx, "/tag/"+id, values)
+	raw, err := c.get(ctx, fmt.Sprintf("/tag/%d", id), values)
 	if err != nil {
-		return Tag{}, errors.Wrapf(err, "could not get tag %s", id)
+		return Tag{}, errors.Wrapf(err, "could not get tag %d", id)
 	}
 	var res Tag
 	if err := json.Unmarshal(raw, &res); err != nil {
-		return Tag{}, errors.Wrapf(err, "could not unmarshal tag %s", id)
+		return Tag{}, errors.Wrapf(err, "could not unmarshal tag %d", id)
 	}
 	return res, nil
 }

@@ -7,14 +7,14 @@ import (
 
 func TestUser(t *testing.T) {
 	tt := []struct {
-		id       string
+		id       int
 		username string
 		joined   string
 		err      bool
 	}{
-		{"0", "", "", true},
-		{"1", "MangaDex", "2012", false},
-		{"2", "Holo", "2012", false},
+		{0, "", "", true},
+		{1, "MangaDex", "2012", false},
+		{2, "Holo", "2012", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
@@ -26,10 +26,10 @@ func TestUser(t *testing.T) {
 			continue
 		}
 		if u.Username != tc.username {
-			t.Fatalf("expected username of %s to be %s, got %s", tc.id, tc.username, u.Username)
+			t.Fatalf("expected username of %d to be %s, got %s", tc.id, tc.username, u.Username)
 		}
 		if u.Joined.Format("2006") != tc.joined {
-			t.Fatalf("expected user %s to have joined %s, got %s", tc.id, tc.joined, u.Joined.Format("2006"))
+			t.Fatalf("expected user %d to have joined %s, got %s", tc.id, tc.joined, u.Joined.Format("2006"))
 		}
 	}
 }

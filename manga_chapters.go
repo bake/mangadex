@@ -2,6 +2,7 @@ package mangadex
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/google/go-querystring/query"
 	"github.com/pkg/errors"
@@ -34,14 +35,14 @@ type MangaChaptersOptions struct {
 
 // MangaChapters returns partial information about the chapters belonging to a
 // manga.
-func (c *Client) MangaChapters(ctx context.Context, id string, opts *MangaChaptersOptions) ([]PreviewChapter, error) {
+func (c *Client) MangaChapters(ctx context.Context, id int, opts *MangaChaptersOptions) ([]PreviewChapter, error) {
 	values, err := query.Values(opts)
 	if err != nil {
 		return nil, errors.Wrap(err, "could not encode options")
 	}
-	cs, err := c.previewChapters(ctx, "/manga/"+id+"/chapters", values)
+	cs, err := c.previewChapters(ctx, fmt.Sprintf("/manga/%d/chapters", id), values)
 	if err != nil {
-		return nil, errors.Wrapf(err, "could not get chapters of manga %s", id)
+		return nil, errors.Wrapf(err, "could not get chapters of manga %d", id)
 	}
 	return cs, nil
 }

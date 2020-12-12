@@ -7,18 +7,18 @@ import (
 
 func TestTags(t *testing.T) {
 	tt := []struct {
-		id, name string
-		err      bool
+		id   int
+		name string
+		err  bool
 	}{
-		{"-", "", true},
-		{"5", "Comedy", false},
-		{"19", "Music", false},
+		{5, "Comedy", false},
+		{19, "Music", false},
 	}
 	for _, tc := range tt {
 		ctx := context.Background()
 		tag, err := md.Tag(ctx, tc.id, nil)
 		if !tc.err && err != nil {
-			t.Fatalf("expected tag %s to exist, got %q", tc.id, err)
+			t.Fatalf("expected tag %d to exist, got %q", tc.id, err)
 		}
 		if tc.err {
 			continue
