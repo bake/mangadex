@@ -15,6 +15,8 @@ type Cover struct {
 	URL    string `json:"url"`
 }
 
+func (c Cover) String() string { return c.URL }
+
 // MangaCoversOptions contains options that can be passed to the endpoint.
 type MangaCoversOptions struct{}
 

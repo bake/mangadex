@@ -15,6 +15,8 @@ type Relation struct {
 	PairID int    `json:"pairId"`
 }
 
+func (r Relation) String() string { return r.Name }
+
 // RelationsOptions contains options that can be passed to the endpoint.
 type RelationsOptions struct{}
 
@@ -28,9 +30,13 @@ func (c *Client) Relations(ctx context.Context, opts *RelationsOptions) ([]Relat
 	if err != nil {
 		return nil, errors.Wrap(err, "could not get relations")
 	}
-	var res []Relation
+	res := map[int]Relation{}
 	if err := json.Unmarshal(raw, &res); err != nil {
 		return nil, errors.Wrap(err, "could not unmarshal relations")
 	}
-	return res, nil
+	var rs []Relation
+	for _, r := range res {
+		rs = append(rs, r)
+	}
+	return rs, nil
 }

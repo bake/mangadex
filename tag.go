@@ -17,6 +17,8 @@ type Tag struct {
 	Description string `json:"description"`
 }
 
+func (t Tag) String() string { return t.Name }
+
 // TagsOptions contains options that can be passed to the endpoint.
 type TagsOptions struct{}
 
@@ -30,11 +32,15 @@ func (c *Client) Tags(ctx context.Context, opts *TagsOptions) ([]Tag, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, "could not get tags")
 	}
-	var res []Tag
+	res := map[int]Tag{}
 	if err := json.Unmarshal(raw, &res); err != nil {
 		return nil, errors.Wrap(err, "could not unmarshal tags")
 	}
-	return res, nil
+	var ts []Tag
+	for _, t := range res {
+		ts = append(ts, t)
+	}
+	return ts, nil
 }
 
 // TagOptions contains options that can be passed to the endpoint.
@@ -56,5 +62,3 @@ func (c *Client) Tag(ctx context.Context, id int, opts *TagOptions) (Tag, error)
 	}
 	return res, nil
 }
-
-func (t Tag) String() string { return t.Name }

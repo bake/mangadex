@@ -41,11 +41,14 @@ func TestChapter(t *testing.T) {
 		if tc.err {
 			continue
 		}
-		if c.Title != tc.title {
-			t.Fatalf("expected title to be %s, got %s", tc.title, c.Title)
+		if c.String() != tc.title {
+			t.Fatalf("expected title to be %s, got %s", tc.title, c.String())
 		}
 		if len(c.Pages) != tc.pages {
 			t.Fatalf("expected chapter to have %d pages, not %d", tc.pages, len(c.Pages))
+		}
+		if len(c.Images()) != tc.pages {
+			t.Fatalf("expected chapter to have %d images, not %d", tc.pages, len(c.Pages))
 		}
 	}
 }

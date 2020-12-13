@@ -26,8 +26,8 @@ func TestGroup(t *testing.T) {
 		if tc.err {
 			continue
 		}
-		if g.Name != tc.name {
-			t.Fatalf("expected group %d to have the name %q, got %q", tc.id, tc.name, g.Name)
+		if g.String() != tc.name {
+			t.Fatalf("expected group %d to have the name %q, got %q", tc.id, tc.name, g.String())
 		}
 	}
 }

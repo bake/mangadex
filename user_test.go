@@ -25,8 +25,8 @@ func TestUser(t *testing.T) {
 		if tc.err {
 			continue
 		}
-		if u.Username != tc.username {
-			t.Fatalf("expected username of %d to be %s, got %s", tc.id, tc.username, u.Username)
+		if u.String() != tc.username {
+			t.Fatalf("expected username of %d to be %s, got %s", tc.id, tc.username, u.String())
 		}
 		if u.Joined.Format("2006") != tc.joined {
 			t.Fatalf("expected user %d to have joined %s, got %s", tc.id, tc.joined, u.Joined.Format("2006"))

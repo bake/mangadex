@@ -14,6 +14,8 @@ type Follow struct {
 	Name string `json:"name"`
 }
 
+func (f Follow) String() string { return f.Name }
+
 // FollowsOptions contains options that can be passed to the endpoint.
 type FollowsOptions struct{}
 
@@ -27,9 +29,13 @@ func (c *Client) Follows(ctx context.Context, opts *FollowsOptions) ([]Follow, e
 	if err != nil {
 		return nil, errors.Wrap(err, "could not get follows")
 	}
-	var res []Follow
+	res := map[int]Follow{}
 	if err := json.Unmarshal(raw, &res); err != nil {
 		return nil, errors.Wrap(err, "could not unmarshal follows")
 	}
-	return res, nil
+	var fs []Follow
+	for _, f := range res {
+		fs = append(fs, f)
+	}
+	return fs, nil
 }

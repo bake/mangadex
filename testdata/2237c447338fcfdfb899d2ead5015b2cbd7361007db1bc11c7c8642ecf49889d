@@ -1,0 +1,9 @@
+HTTP/2.0 200 OK
+Connection: close
+Content-Security-Policy: upgrade-insecure-requests;
+Content-Type: application/json
+Date: Sun, 13 Dec 2020 11:44:04 GMT
+Server: ddos-guard
+Set-Cookie: __ddg1=7FXPcbfN3w7Ua0oGYSI8; Domain=.mangadex.org; HttpOnly; Path=/; Expires=Mon, 13-Dec-2021 11:44:04 GMT
+
+{"code":200,"status":"OK","data":{"1":{"id":1,"name":"Reading"},"2":{"id":2,"name":"Completed"},"3":{"id":3,"name":"On hold"},"4":{"id":4,"name":"Plan to read"},"5":{"id":5,"name":"Dropped"},"6":{"id":6,"name":"Re-reading"}}}

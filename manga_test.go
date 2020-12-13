@@ -36,8 +36,8 @@ func TestManga(t *testing.T) {
 		if tc.err {
 			continue
 		}
-		if m.Title != tc.title {
-			t.Fatalf("expected title to be %s, got %s", tc.title, m.Title)
+		if m.String() != tc.title {
+			t.Fatalf("expected title to be %s, got %s", tc.title, m.String())
 		}
 	}
 }
