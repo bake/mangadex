@@ -6,6 +6,10 @@
 
 A Go client for the MangaDex API v2.
 
+```bash
+$ go get github.com/bake/mangadex/v2
+```
+
 ```go
 func main() {
   md := mangadex.New()
