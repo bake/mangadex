@@ -1,8 +1,8 @@
 # MangaDex
 
 [![GoDoc](https://godoc.org/github.com/bake/mangadex?status.svg)](https://pkg.go.dev/github.com/bake/mangadex/v2)
-[![Go Report Card](https://goreportcard.com/badge/github.com/bake/mangadex)](https://goreportcard.com/report/github.com/bake/mangadex)
-[![codecov](https://codecov.io/gh/bake/mangadex/branch/master/graph/badge.svg)](https://codecov.io/gh/bake/mangadex)
+<!-- [![Go Report Card](https://goreportcard.com/badge/github.com/bake/mangadex)](https://goreportcard.com/report/github.com/bake/mangadex) -->
+[![codecov](https://codecov.io/gh/bake/mangadex/branch/v2/graph/badge.svg)](https://codecov.io/gh/bake/mangadex/branch/v2)
 
 A Go client for the MangaDex API v2.
 
