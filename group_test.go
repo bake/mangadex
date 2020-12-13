@@ -41,6 +41,7 @@ func TestPreviewGroup(t *testing.T) {
 		{[]byte(""), mangadex.PreviewGroup{}, true},
 		{[]byte("314"), mangadex.PreviewGroup{314, ""}, false},
 		{[]byte("{\"id\":314,\"name\":\"Pi\"}"), mangadex.PreviewGroup{314, "Pi"}, false},
+		{[]byte("false"), mangadex.PreviewGroup{}, true},
 	}
 	for _, tc := range tt {
 		var g mangadex.PreviewGroup

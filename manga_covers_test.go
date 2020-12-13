@@ -28,8 +28,8 @@ func TestMangaCovers(t *testing.T) {
 			t.Fatalf("expected manga %d to have %d covers, got 0", tc.id, tc.covers)
 		}
 		c := cs[0]
-		if c.Volume != tc.volume || c.URL != tc.url {
-			t.Fatalf("expected the first cover of manga %d to be (%q, %q), got (%q, %q)", tc.id, tc.volume, tc.url, c.Volume, c.URL)
+		if c.Volume != tc.volume || c.String() != tc.url {
+			t.Fatalf("expected the first cover of manga %d to be (%q, %q), got (%q, %q)", tc.id, tc.volume, tc.url, c.Volume, c.String())
 		}
 	}
 }

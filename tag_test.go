@@ -38,6 +38,7 @@ func TestTag(t *testing.T) {
 		name string
 		err  bool
 	}{
+		{-1, "", true},
 		{5, "Comedy", false},
 		{19, "Music", false},
 	}
